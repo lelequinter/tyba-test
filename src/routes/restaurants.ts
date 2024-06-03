@@ -23,6 +23,19 @@ const routes: Route[] = [
             })
         }
     },
+    {
+        router: restaurantRouter,
+        path: '/history',
+        method: 'post',
+        needAuth: true,
+        handler: RestaurantsController.getRestaurantsHistory,
+        validators: {
+            body: z.object({
+                limit: z.number().min(1),
+                offset: z.number().min(0),
+            })
+        }
+    },
 ]
 
 routes.forEach( (route: Route) => {
