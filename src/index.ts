@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import bodyparser from "body-parser";
-import userRouter from "./src/routes/user";
-import { ServerError } from "./src/util/server-error";
+import userRouter from "./routes/user";
+import { ServerError } from "./util/server-error";
 
 const app = express();
 
