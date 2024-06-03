@@ -20,6 +20,9 @@ const routes: Route[] = [
                     lat: z.number()
                 }).optional(),
                 city: z.string().optional()
+            }).refine( data => (data.coordinates ? !data.city : data.city ), {
+                message: 'Solo Puede proveer una de las dos propiedades, coordenadas o ciudad',
+                path: ['coordinates', 'city']
             })
         }
     },
