@@ -4,7 +4,7 @@ import { ZodError, ZodSchema } from "zod";
 
 //* Middleware de validación
 const validate = (schema: ZodSchema, payload: 'body'|'params'|'query') => (req: Request, res: Response, next: NextFunction) => {
-    try {
+    try {        
         //* Validar si el objeto de usuario cumple con el esquema enviado
         schema.parse(req[payload]);
         next();
@@ -33,15 +33,15 @@ export const createRoute = (options: Route): void => {
     }
 
     //* Pushear handler validate depediendo del cuerpo de la peticion
-    if( validators?.body ){
+    if( !!validators?.body ){
         handlers.push( validate( validators.body, 'body' ) );
     }
 
-    if( validators?.pathParams ){
+    if( !!validators?.pathParams ){
         handlers.push( validate( validators.pathParams, 'params' ) );
     }
 
-    if( validators?.queryParams ){
+    if( !!validators?.queryParams ){
         handlers.push( validate( validators.queryParams, 'query' ) );
     }
 
