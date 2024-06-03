@@ -7,6 +7,13 @@ import { TokenBlacklist } from "../models/token-blacklist";
 
 //? CRUD Controllers
 //* Get all users
+/**
+ * Get a list of users
+ * @route GET /users
+ * @group Users - Operations about user
+ * @returns {Array.<User>} 200 - An array of user objects
+ * @returns {ErrorResponse}  500 - Internal server error response
+ */
 const getUsers = async (_: Request, res: Response) => {   
 
     try {
@@ -23,6 +30,13 @@ const getUsers = async (_: Request, res: Response) => {
 };
 
 //* Get user by id
+/**
+ * Get a specific user by ID
+ * @route GET /users/:userId
+ * @group Users - Operations about user
+ * @returns {Array.<User>} 200 - A user object
+ * @returns {ErrorResponse}  500 - Internal server error response
+ */
 const getUser = async (req: Request, res: Response) => {
     //* Desestrucuramos el id del usuario
     const { userId } = req.params;
@@ -46,6 +60,14 @@ const getUser = async (req: Request, res: Response) => {
 };
 
 //* Create user 
+/**
+ * Create a new user
+ * @route POST /users
+ * @group Users - Operations about user
+ * @param {User.model} user.body.required - The new user data
+ * @returns {User} 201 - The created user object
+ * @returns {ErrorResponse}  500 - Internal server error response
+ */
 const createUser = async (req: Request, res: Response) => {
     //* Desestructurar del body de la request los datos del usuario
     const { name, email, password: rawPassword } = req.body;
@@ -74,6 +96,16 @@ const createUser = async (req: Request, res: Response) => {
 };
 
 //* Update user
+/**
+ * Update a user by ID
+ * @route PUT /users/:userId
+ * @group Users - Operations about user
+ * @param {string} id.path.required - The ID of the user
+ * @param {User.model} user.body.required - The updated user data
+ * @returns {User} 200 - The updated user object
+ * @returns {ErrorResponse}  404 - User not found
+ * @returns {ErrorResponse}  500 - Internal server error response
+ */
 const updateUser = async (req: Request, res: Response) => {
     //* Desestructurar de params y body de la request los datos del usuario
     const { userId } = req.params;
@@ -111,6 +143,14 @@ const updateUser = async (req: Request, res: Response) => {
 };
 
 //* Delete User
+/**
+ * Delete a user by ID
+ * @route DELETE /users/:userId
+ * @group Users - Operations about user
+ * @param {string} id.path.required - The ID of the user
+ * @returns {ErrorResponse}  404 - User not found
+ * @returns {ErrorResponse}  500 - Internal server error response
+ */
 const deleteUser = async (req: Request, res: Response) => {
     //* Desestrucuramos el id del usuario
     const { userId } = req.params;
@@ -141,6 +181,15 @@ const deleteUser = async (req: Request, res: Response) => {
 };
 
 //* Login User
+/**
+ * Create a new user
+ * @route POST /users/login
+ * @group Users - Operations about user login
+ * @param {User.model} user.body.required - The user data to get into the app
+ * @returns {User} 200 - Login successfully
+ * @returns {ErrorResponse}  404 - Invalid user or password
+ * @returns {ErrorResponse}  500 - Internal server error response
+ */
 const loginUser = async (req: Request, res: Response) => {
     //* Desestructurar del body de la request los datos del usuario
     const { email, password } = req.body;
@@ -170,6 +219,13 @@ const loginUser = async (req: Request, res: Response) => {
 }
 
 //* Logout user
+/**
+ * Create a new user
+ * @route POST /users/logout
+ * @group Users - Operations about user logout
+ * @returns {User} 200 - Logged out successfully
+ * @returns {ErrorResponse}  500 - Internal server error response
+ */
 const logoutUser = async (req: Request, res: Response) => {
     const { token, userId } = req;
 
