@@ -1,7 +1,17 @@
 import express, { Request, Response, NextFunction } from "express";
 import bodyparser from "body-parser";
-import userRouter from "./routes/user";
 import { ServerError } from "./util/server-error";
+import userRouter from "./routes/user";
+import restaurantRouter from "./routes/restaurants";
+
+// agregar el campo 'userId' para poder guardar el id del usuario que llega en el jwt
+declare global {
+    namespace Express {
+    interface Request {
+        userId: string
+    }
+    }
+}
 
 const app = express();
 
@@ -24,6 +34,7 @@ app.get('/', (_: Request, res: Response) => {
 
 //* CRUD Routes
 app.use('/users', userRouter);
+app.use('/restaurants', restaurantRouter);
 
 //* Error Handling
 app.use((error: ServerError, _: Request, res: Response): void => {

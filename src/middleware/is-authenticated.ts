@@ -30,6 +30,8 @@ export const isAuthenticated = async (req: Request, res: Response, next: NextFun
             throw new ServerError('User does not exist');
         }
 
+        req.userId = userId;
+
         next();
 
     } catch (error) {

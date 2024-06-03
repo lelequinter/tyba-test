@@ -14,6 +14,12 @@ services:
       - PG_HOST=node_db
       - SALT_ROUNDS=6
       - JWT_SECRET=superbsecure
+      - JWT_EXPIRES_IN=7200
+      - MB_URL_SUGGEST=https://api.mapbox.com/search/searchbox/v1/suggest
+      - MB_URL_RETRIEVE=https://api.mapbox.com/search/searchbox/v1/retrieve
+      - MB_ACCESS_TOKEN=pk.eyJ1IjoicmVkeWVsIiwiYSI6ImNsOXB1ZGhvZTA4OTUzb285N3lvanoxbXkifQ.d2hdFasT0j3tEIN_xDlt2Q
+      - MB_SESSION_TOKEN=0903d4c2-3f42-47d1-88fd-e878e20018d1
+      - MB_SEARCH=food
     restart: always
     depends_on:
       - node_db

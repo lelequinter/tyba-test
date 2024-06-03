@@ -1,5 +1,5 @@
 import { Router } from "express";
-import UserController from "../controllers/controllers";
+import UserController from "../controllers/user";
 import { createRoute, Route } from '../util/router';
 import z from "zod";
 
@@ -59,6 +59,13 @@ const routes: Route[] = [
                 password: z.string().min(6, "Password must be at least 8 characters long")
             })
         }
+    },
+    {
+        router: userRouter,
+        path: '/logout',
+        method: "get",
+        needAuth: true,
+        handler: UserController.logoutUser,
     },
 ]
 

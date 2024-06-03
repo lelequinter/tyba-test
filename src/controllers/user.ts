@@ -138,7 +138,7 @@ const deleteUser = async (req: Request, res: Response) => {
     }
 };
 
-
+//* Login User
 const loginUser = async (req: Request, res: Response) => {
     //* Desestructurar del body de la request los datos del usuario
     const { email, password } = req.body;
@@ -156,8 +156,8 @@ const loginUser = async (req: Request, res: Response) => {
         }
 
         //* Generar JWT con el userId e email, el token expira en 2 horas
-        const token = jwt.sign( {id: user.id, email}, String(process.env['JWT_SECRET']), { expiresIn: '2h' } );
-
+        const token = jwt.sign( {id: user.id, email}, String(process.env['JWT_SECRET']), { expiresIn: Number(process.env['JWT_EXPIRES_IN']) } );
+        res.cookie('jwt', token,{ maxAge: Number(process.env['JWT_EXPIRES_IN']) })
         //* El servicio responde informacion necesaria para el cliente (front-end)
         res.status(200).json({ user: { email, name: user.name }, token });
     } catch (error) {
@@ -167,4 +167,17 @@ const loginUser = async (req: Request, res: Response) => {
     }
 }
 
-export default { getUsers, getUser, createUser, updateUser, deleteUser, loginUser };
+//* Logout user
+const logoutUser = async (_: Request, res: Response) => {
+    try {
+        //* Elimina la cookie JWT del cliente
+        res.clearCookie('jwt'); 
+        res.send('Logged out successfully');
+    } catch (error) {
+        console.log(error);
+        //* Envia un estado de error si la peticion falla
+        return res.sendStatus(500);
+    }
+}
+
+export default { getUsers, getUser, createUser, updateUser, deleteUser, loginUser, logoutUser };
