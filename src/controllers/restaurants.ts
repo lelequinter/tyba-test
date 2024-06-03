@@ -32,7 +32,7 @@ const findRestaurants = async (req: Request, res: Response) => {
 
         await History.bulkCreate(history);
         
-        return res.status(200).json({ places: response });
+        res.status(200).json({ places: response });
     } catch (error) {
         console.log(error);
         //* Envia un estado de error si la peticion falla
@@ -40,4 +40,21 @@ const findRestaurants = async (req: Request, res: Response) => {
     }
 }
 
-export default { findRestaurants };
+const getRestaurantsHistory = async (req: Request, res: Response) => {
+    const { userId } = req;
+    const { limit, offset } = req.body;
+
+    try {
+        const response = await History.findAll({ where: { userId }, limit, offset });
+
+        const filteredRestaurants = response.map( res => ({ name: res.name, address: res.address }) );
+
+        res.status(200).json( { filteredRestaurants, limit, offset } );
+    } catch (error) {
+        console.log(error);
+        //* Envia un estado de error si la peticion falla
+        return res.sendStatus(500); 
+    }
+}
+
+export default { findRestaurants, getRestaurantsHistory };
