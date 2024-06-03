@@ -49,6 +49,13 @@ const routes: Route[] = [
     },
     {
         router: userRouter,
+        path: '/logout',
+        method: "post",
+        needAuth: true,
+        handler: UserController.logoutUser,
+    },
+    {
+        router: userRouter,
         path: '/login',
         method: "post",
         needAuth: false,
@@ -60,13 +67,7 @@ const routes: Route[] = [
             })
         }
     },
-    {
-        router: userRouter,
-        path: '/logout',
-        method: "get",
-        needAuth: true,
-        handler: UserController.logoutUser,
-    },
+    
 ]
 
 routes.forEach( (route: Route) => {

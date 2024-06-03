@@ -3,10 +3,12 @@ import { Request, Response } from "express";
 import { encryptPassword } from '../util/encrypt';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
+import { TokenBlacklist } from "../models/token-blacklist";
 
 //? CRUD Controllers
 //* Get all users
-const getUsers = async (_: Request, res: Response) => {
+const getUsers = async (_: Request, res: Response) => {   
+
     try {
         //* Recupera de la base de datos todos los registros de la tabla Users
         const users = await User.findAll();
@@ -168,11 +170,16 @@ const loginUser = async (req: Request, res: Response) => {
 }
 
 //* Logout user
-const logoutUser = async (_: Request, res: Response) => {
+const logoutUser = async (req: Request, res: Response) => {
+    const { token, userId } = req;
+
     try {
         //* Elimina la cookie JWT del cliente
+
+        await TokenBlacklist.findOrCreate({ where: { token, userId } });
+
         res.clearCookie('jwt'); 
-        res.send('Logged out successfully');
+        res.status(200).json({message: 'Logged out successfully'});
     } catch (error) {
         console.log(error);
         //* Envia un estado de error si la peticion falla

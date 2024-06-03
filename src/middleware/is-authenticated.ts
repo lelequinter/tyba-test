@@ -3,6 +3,7 @@ import { ServerError } from "../util/server-error";
 import jwt from 'jsonwebtoken';
 import { TypeWithKey } from "../util/type-with-key";
 import { User } from "../models/user";
+import { TokenBlacklist } from "../models/token-blacklist";
 
 export const isAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -15,6 +16,11 @@ export const isAuthenticated = async (req: Request, res: Response, next: NextFun
 
         //* Get Token
         const token: string = authorization.split(' ')[1];
+
+        //* No permitir a la persona seguir en la aplicacion si el token está en la lista negra
+        if (await TokenBlacklist.findByPk(token)){
+            throw new ServerError('User unauthorized');
+        }
 
         //* Verify token
         const decodedToken = jwt.verify( token, String(process.env['JWT_SECRET']) ) as TypeWithKey<string>;
@@ -31,6 +37,7 @@ export const isAuthenticated = async (req: Request, res: Response, next: NextFun
         }
 
         req.userId = userId;
+        req.token = token;
 
         next();
 
