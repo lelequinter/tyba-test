@@ -21,15 +21,18 @@ const validate = (schema: ZodSchema, payload: 'body'|'params'|'query') => (req: 
 
   //* Generador de rutas
 export const createRoute = (options: Route): void => {
-
+    //* Desestructurar de options los parametros eviados en la peticion
     const { router, path, method, handler, needAuth, validators } = options;
 
+    //* arreglo de handlers dinamico para setear dependiendo del cuerpo de la peticion
     const handlers: RequestHandler[] = [];
 
+    //* Pushear isAuthenticated handler si el endpoint lo necesita
     if( needAuth ){
         handlers.push(isAuthenticated);
     }
 
+    //* Pushear handler validate depediendo del cuerpo de la peticion
     if( validators?.body ){
         handlers.push( validate( validators.body, 'body' ) );
     }
@@ -42,10 +45,11 @@ export const createRoute = (options: Route): void => {
         handlers.push( validate( validators.queryParams, 'query' ) );
     }
 
+    //* Pushear el handler Controller
     handlers.push(handler);
 
+    //* Crear el router method con su respectivo path y stream de handlers
     router[method](path, ...handlers );
-
 }
 
 export interface Route { router: Router, path: string, method: Method, handler: RequestHandler, needAuth: boolean, validators?: { body?: any, pathParams?: any, queryParams?: any } }
