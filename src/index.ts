@@ -8,7 +8,8 @@ import restaurantRouter from "./routes/restaurants";
 declare global {
     namespace Express {
     interface Request {
-        userId: string
+        userId: string,
+        token: string
     }
     }
 }
@@ -37,11 +38,12 @@ app.use('/users', userRouter);
 app.use('/restaurants', restaurantRouter);
 
 //* Error Handling
-app.use((error: ServerError, _: Request, res: Response): void => {
+app.use((error: ServerError, req: Request, res: Response, next: NextFunction): void => {
     const statusCode = error.statusCode || 500;
     const message = error.message;
 
     res.status(500).json({ statusCode, message: message });
+    next();
 });
 
 //* Run server
