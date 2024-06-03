@@ -2,7 +2,6 @@ import axios from "axios"
 import { Request, Response } from "express";
 import { History, IHistory } from "../models/history";
 
-//* Find nearby restaurants
 /**
  * Find nearby restaurants
  * @route POST /restaurants
@@ -63,7 +62,6 @@ const findRestaurants = async (req: Request, res: Response) => {
     }
 }
 
-//* Get restaurants history
 /**
  * Get restaurants history list
  * @route POST /restaurants/history

@@ -5,8 +5,6 @@ import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import { TokenBlacklist } from "../models/token-blacklist";
 
-//? CRUD Controllers
-//* Get all users
 /**
  * Get a list of users
  * @route GET /users
@@ -29,7 +27,6 @@ const getUsers = async (_: Request, res: Response) => {
     }
 };
 
-//* Get user by id
 /**
  * Get a specific user by ID
  * @route GET /users/:userId
@@ -59,7 +56,6 @@ const getUser = async (req: Request, res: Response) => {
     }
 };
 
-//* Create user 
 /**
  * Create a new user
  * @route POST /users
@@ -95,7 +91,6 @@ const createUser = async (req: Request, res: Response) => {
     }
 };
 
-//* Update user
 /**
  * Update a user by ID
  * @route PUT /users/:userId
@@ -142,7 +137,6 @@ const updateUser = async (req: Request, res: Response) => {
     }
 };
 
-//* Delete User
 /**
  * Delete a user by ID
  * @route DELETE /users/:userId
@@ -180,7 +174,6 @@ const deleteUser = async (req: Request, res: Response) => {
     }
 };
 
-//* Login User
 /**
  * Create a new user
  * @route POST /users/login
@@ -218,7 +211,6 @@ const loginUser = async (req: Request, res: Response) => {
     }
 }
 
-//* Logout user
 /**
  * Create a new user
  * @route POST /users/logout
