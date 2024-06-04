@@ -8,19 +8,19 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - PG_DB=node_live_db
-      - PG_USER=lelequinter
-      - PG_PASSWORD=123456
-      - PG_HOST=node_db
-      - SALT_ROUNDS=6
-      - JWT_SECRET=superbsecure
-      - JWT_EXPIRES_IN=7200
-      - MB_URL_SUGGEST=https://api.mapbox.com/search/searchbox/v1/suggest
-      - MB_URL_RETRIEVE=https://api.mapbox.com/search/searchbox/v1/retrieve
-      - MB_URL_FORWARD=https://api.mapbox.com/search/geocode/v6/forward
-      - MB_ACCESS_TOKEN=pk.eyJ1IjoicmVkeWVsIiwiYSI6ImNsOXB1ZGhvZTA4OTUzb285N3lvanoxbXkifQ.d2hdFasT0j3tEIN_xDlt2Q
-      - MB_SESSION_TOKEN=0de3b817-d1db-45a1-88fe-035397b033b9
-      - MB_SEARCH=food
+      - PG_DB=${PG_DB}
+      - PG_USER=${PG_USER}
+      - PG_PASSWORD=${PG_PASSWORD}
+      - PG_HOST=${PG_HOST}
+      - SALT_ROUNDS=${SALT_ROUNDS}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN}
+      - MB_URL_SUGGEST=${MB_URL_SUGGEST}
+      - MB_URL_RETRIEVE=${MB_URL_RETRIEVE}
+      - MB_URL_FORWARD=${MB_URL_FORWARD}
+      - MB_ACCESS_TOKEN=${MB_ACCESS_TOKEN}
+      - MB_SESSION_TOKEN=${MB_SESSION_TOKEN}
+      - MB_SEARCH=${MB_SEARCH}
     restart: always
     depends_on:
       - node_db
@@ -31,9 +31,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=node_live_db
-      - POSTGRES_USER=lelequinter
-      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - node_db_data:/var/lib/postgresql/data
 

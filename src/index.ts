@@ -1,3 +1,6 @@
+import dotenvflow from 'dotenv-flow'
+dotenvflow.config()
+
 import express, { Request, Response, NextFunction } from "express";
 import bodyparser from "body-parser";
 import { ServerError } from "./util/server-error";
@@ -14,7 +17,7 @@ declare global {
     }
 }
 
-const app = express();
+export const app = express();
 
 //* Set Middlewares
 app.use(bodyparser.json());
@@ -47,4 +50,4 @@ app.use((error: ServerError, req: Request, res: Response, next: NextFunction): v
 });
 
 //* Run server
-app.listen(3000);
+export const server = app.listen(3000);

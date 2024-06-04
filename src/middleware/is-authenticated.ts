@@ -3,7 +3,7 @@ import { ServerError } from "../util/server-error";
 import jwt from 'jsonwebtoken';
 import { TypeWithKey } from "../util/type-with-key";
 import { User } from "../models/user";
-import { TokenBlacklist } from "../models/token-blacklist";
+import { TokenBlacklist } from "../models/tokenBlacklist";
 
 export const isAuthenticated = async (req: Request, res: Response, next: NextFunction) => {
     try {

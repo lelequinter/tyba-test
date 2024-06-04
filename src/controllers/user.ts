@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { encryptPassword } from '../util/encrypt';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
-import { TokenBlacklist } from "../models/token-blacklist";
+import { TokenBlacklist } from "../models/tokenBlacklist";
 
 /**
  * Get a list of users
